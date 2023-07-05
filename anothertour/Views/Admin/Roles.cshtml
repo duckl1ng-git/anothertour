@@ -1,0 +1,39 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@model IEnumerable<IdentityRole>
+
+@{
+    ViewData["Title"] = "Роли";
+}
+
+<h2>Список ролей</h2>
+<hr />
+
+<a class="btn btn-secondary" asp-action="CreateRole">Создать роль</a>
+<div class="ftable">
+    <table class="table">
+        @{
+            <tr>
+                <th>Название</th>
+                <th>Переименовать</th>
+                <th>Удалить</th>
+            </tr>
+            foreach (var role in Model)
+            {
+                <tr>
+                    <td>@role.Name</td>
+                    <th>
+                        <a class="btn btn-secondary" asp-action="RenameRole" asp-route-id="@role.Id">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                    </th>
+                    <th>
+                        <a class="btn btn-secondary" asp-action="DeleteRole" asp-route-id="@role.Id">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </th>
+                </tr>
+            }
+        }
+    </table>
+</div>

@@ -1,0 +1,57 @@
+﻿@model anothertour.Models.Client
+
+@{
+    ViewData["Title"] = "Профиль";
+}
+
+<h1>Ваш профиль</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OrdersNumber)
+        </dt>
+        <dd class = "col-sm-10">
+            @*@Html.DisplayFor(model => model.OrdersNumber)*@
+            @Model.OrdersNumber
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ReviewsNumber)
+        </dt>
+        <dd class = "col-sm-10">
+            @*@Html.DisplayFor(model => model.ReviewsNumber)*@
+            @Model.ReviewsNumber
+        </dd>
+    </dl>
+</div>
+<hr />
+<div>
+    <a asp-action="EditProfile" asp-route-id="@Model.Id" class="btn btn-secondary">
+        <i class="bi bi-pencil"></i>
+        Редактировать
+    </a>
+    <br />
+    <br />
+    <a asp-action="Index" asp-controller="Home" class="btn btn-secondary">
+        На главную
+    </a>
+</div>

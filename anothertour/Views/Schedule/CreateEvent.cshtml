@@ -1,0 +1,44 @@
+﻿@model anothertour.Models.ScheduleItem
+
+@{
+    ViewData["Title"] = "Создать событие";
+}
+
+<h1>Создать событие</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateEvent">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ScheduleItemId" value="0" />
+            <input type="hidden" asp-for="SelectedTour" value="null" />
+            <div class="form-group">
+                <label asp-for="TourId" class="control-label"></label>
+                <select asp-for="TourId" class="form-control" asp-items="ViewBag.Tours"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="GuideId" class="control-label"></label>
+                <select asp-for="GuideId" class="form-control" asp-items="ViewBag.Guides"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="TouristsCount" class="control-label"></label>
+                <input asp-for="TouristsCount" class="form-control" type="number" />
+                <span asp-validation-for="TouristsCount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Date_Time" class="control-label"></label>
+                <input asp-for="Date_Time" class="form-control" type="datetime-local" />
+                <span asp-validation-for="Date_Time" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Создать" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<br />
+<div>
+    <a class="btn btn-secondary" asp-action="EventsList">Назад к списку</a>
+</div>

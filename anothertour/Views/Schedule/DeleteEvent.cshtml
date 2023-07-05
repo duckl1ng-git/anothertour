@@ -1,0 +1,44 @@
+﻿@model anothertour.Models.ScheduleItem
+
+@{
+    ViewData["Title"] = "Удалить";
+}
+
+<h1>Удалить событие</h1>
+
+<h3>Вы уверены, что хотите удалить это событие?</h3>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.GuideId)
+        </dt>
+        <dd class = "col-sm-10">
+            @ViewBag.GuideName
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SelectedTour)
+        </dt>
+        <dd class = "col-sm-10">
+            @ViewBag.TourName
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TouristsCount)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TouristsCount)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Date_Time)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Date_Time)
+        </dd>
+    </dl>
+    
+    <form asp-action="DeleteEvent">
+        <input type="hidden" asp-for="ScheduleItemId" />
+        <input type="submit" value="Удалить" class="btn btn-danger" /> |
+        <a class="btn btn-secondary" asp-action="EventsList" asp-controller="Schedule">Назад к списку</a>
+    </form>
+</div>

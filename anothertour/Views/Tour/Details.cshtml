@@ -1,0 +1,175 @@
+﻿@model anothertour.Models.Tour
+
+@{
+    ViewData["Title"] = "Подробности";
+}
+
+<h1>Подробности</h1>
+
+<hr />
+
+<div>
+    <div class="row row-cols-md-2 row-cols-sm-1 container-fluid">
+        <div class="col col-md-2">
+            <img src="@Url.Content($"~/images/{Model.Id}/")@Model.MainImage" alt="@Model.Name" class="img-fluid">
+        </div>
+        <div class="col col-md-10">
+            <h1>@Html.DisplayFor(model => model.Name)</h1>
+            <br />
+            <h2>@Html.DisplayNameFor(model => model.TicketPrice): @Html.DisplayFor(model => model.TicketPrice) ₽</h2>
+        </div>
+
+        <br />
+    </div>
+
+    <hr />
+
+    <ul class="nav nav-tabs mb-3" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="desc-tab" data-bs-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true"> Описание </a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="photo-tab" data-bs-toggle="tab" href="#photo" role="tab" aria-controls="photo" aria-selected="false"> Фото </a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="video-tab" data-bs-toggle="tab" href="#video" role="tab" aria-controls="video" aria-selected="false"> Видео </a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="reviews-tab" data-bs-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false"> Отзывы </a>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="tab-content">
+        <div class="tab-pane active" id="description" role="tabpanel" aria-labelledby="desc-tab">
+            @if (!string.IsNullOrEmpty(Model.Description))
+            {
+                @Html.Raw(Model.Description)
+            }
+            else
+            {
+                <p>Упс!</p>
+                <p>Кажется тут ничего нет, но это временно. Не волнуйтесь.</p>
+                <p>¯⁠\⁠_⁠(⁠ツ⁠)⁠_⁠/⁠¯</p>
+            }
+
+        </div>
+        <div class="tab-pane" id="photo" role="tabpanel" aria-labelledby="photo-tab">
+            @if (!string.IsNullOrEmpty(Model.AdditionalImages))
+            {
+                <div id="carousel" class="carousel slide container-fluid">
+                    <div class="carousel-inner">
+                        @{
+                            ViewData["cnt"] = "0";
+                            ViewData["is_active"] = "active";
+                        }
+                        @foreach (var item in Model.AdditionalImages.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries))
+                        {
+                            if (ViewData["cnt"] != "0") { ViewData["is_active"] = ""; }
+                            <div class="carousel-item @ViewData["is_active"]">
+                                <img src="@Url.Content($"~/images/{Model.Id}/")@item" alt="@item" class="d-block w-100 img-fluid">
+                            </div>
+                            ViewData["cnt"] += "0";
+                        }
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Предыдущий</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Следующий</span>
+                    </button>
+                </div>
+            }
+            else
+            {
+                <p>Упс!</p>
+                <p>Кажется тут ничего нет, но это временно. Не волнуйтесь.</p>
+                <p>¯⁠\⁠_⁠(⁠ツ⁠)⁠_⁠/⁠¯</p>
+            }
+        </div>
+        <div class="tab-pane" id="video" role="tabpanel" aria-labelledby="video-tab">
+            @if (!string.IsNullOrEmpty(Model.Video))
+            {
+                <video src="@Url.Content($"~/video/{Model.Id}/")@Model.Video" class="img-fluid" controls loop />
+            }
+            else
+            {
+                <p>Упс!</p>
+                <p>Кажется тут ничего нет, но это временно. Не волнуйтесь.</p>
+                <p>¯⁠\⁠_⁠(⁠ツ⁠)⁠_⁠/⁠¯</p>
+            }
+        </div>
+        <div class="tab-pane" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a class="btn btn-primary" asp-action="Create" asp-controller="Review"asp-route-tourId="@Model.Id">Оставить отзыв</a>
+            }
+            else
+            {
+                <p>Оставлять отзывы могут только авторизованные пользователи. Войдите или зарегистрируйтесь, чтобы оставить свой отзыв.</p>
+                <p>Нам это очень важно!</p>
+            }
+            @{
+                List<Review> reviews = ViewBag.Reviews;
+                if (reviews.Count != 0)
+                {
+                    foreach(var review in reviews)
+                    {
+                        <hr />
+                        <dl class="row">
+                            <dt class="col-sm-2">Пользователь</dt>
+                            <dd class="col-sm-10">@ViewData[review.ClientId]</dd>
+                            <dt class="col-sm-2">Дата</dt>
+                            <dd class="col-sm-10">@review.Date</dd>
+                            <dt class="col-sm-2">Оценка</dt>
+                            <dd class="col-sm-10">@review.Score</dd>
+                            <dt class="col-sm-2">Текст отзыва</dt>
+                            <dd class="col-sm-10">@review.Text</dd>
+                        </dl>
+                    }
+                }
+                else
+                {
+                    <p>Пока никто не оставил отзыв на эту экскурсию.</p>
+                    <br />
+                    <h3>Напишите отзыв первым!</h3>
+                }
+            }
+        </div>
+    </div>
+
+    <hr />
+
+</div>
+
+<div>
+    <a asp-action="Create" asp-controller="Order" asp-route-tourId="@Model.Id" class="btn btn-primary">
+        Записаться
+    </a>
+</div>
+
+<hr />
+
+<div>
+    @if (User.Identity.IsAuthenticated && User.IsInRole("manager"))
+    {
+        <a asp-action="Edit" asp-controller="Tour" asp-route-id="@Model.Id" class="btn btn-secondary">
+            <i class="bi bi-pencil"></i>
+            Редактировать
+        </a>
+        <a asp-action="Delete" asp-controller="Tour" asp-route-id="@Model.Id" class="btn btn-secondary">
+            <i class="bi bi-trash"></i>
+            Удалить
+        </a>
+        <a asp-action="Index" asp-controller="Tour" class="btn btn-secondary">
+            <i class="bi bi-arrow-return-left"></i>
+            Назад к списку
+        </a>
+    }
+
+    <a asp-action="Index" asp-controller="Home" class="btn btn-secondary">
+        <i class="bi bi-arrow-return-left"></i>
+        На главную
+    </a>
+</div>

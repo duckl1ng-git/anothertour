@@ -1,0 +1,16 @@
+﻿@{
+    ViewData["Title"] = "Создание роли";
+}
+
+<h2>Создание роли</h2>
+<hr />
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form asp-action="CreateRole" method="post">
+    <div class="form-group">
+        <label for="name">Имя роли:</label>
+        <input name="name" class="from-control" />
+        <input type="submit" class="btn btn-primary" value="Создать" />
+    </div>
+</form>
+

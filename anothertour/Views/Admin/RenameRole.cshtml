@@ -1,0 +1,17 @@
+﻿@using Microsoft.AspNetCore.Identity;
+
+@model IdentityRole
+@{
+    ViewData["Title"] = "Переименовать роль";
+}
+
+<h2>Введите новое имя роли для @Model.Name</h2>
+<hr />
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form asp-route-id="@Model.Id" asp-action="RenameRole" method="post">
+    <input type="text" name="name" value="@Model.Name" />
+    <input class="btn btn-warning" type="submit" value="Сохранить" />
+</form>
+<br />
+<a asp-action="Roles" asp-controller="Admin" class="btn btn-secondary">Назад к списку ролей</a>

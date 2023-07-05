@@ -1,0 +1,82 @@
+﻿@model IEnumerable<anothertour.Models.Tour>
+
+@{
+    ViewData["Title"] = "Список экскурсий";
+}
+
+<h1>Список экскурсий</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-secondary">Создать новую</a>
+</p>
+
+<div class="ftable">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                @*<th>
+                @Html.DisplayNameFor(model => model.Description)
+                </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.TicketPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MainImage)
+                </th>
+                @*<th>
+                @Html.DisplayNameFor(model => model.AdditionalImages)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.Video)
+                </th>*@
+                <th>Подробности</th>
+                <th>Редактировать</th>
+                <th>Удалить</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    @*<td>
+                @Html.DisplayFor(modelItem => item.Description)
+                </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TicketPrice)
+                    </td>
+                    <td>
+                        @*@Html.DisplayFor(modelItem => item.MainImage)*@
+                        <img src="@Url.Content($"~/images/{item.Id}/")@item.MainImage" alt="@item.Name" class="img-thumbnail" width="100" height="100">
+                    </td>
+                    @*<td>
+                @Html.DisplayFor(modelItem => item.AdditionalImages)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.Video)
+                </td>*@
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary">
+                            <i class="bi bi-eye"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-secondary">
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-secondary">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,93 @@
+﻿@model IEnumerable<anothertour.Models.Tour>
+
+@{
+    ViewData["Title"] = "Главная";
+}
+
+<div class="text-center">
+    @*<h2>Другая Экскурсия</h2>*@
+    <img src="~/images/at_banner.jpg" class="img-fluid" />
+</div>
+
+<hr />
+
+<div class="text-center">
+    <h2>О «Другой Экскурсии»</h2>
+    <p style="font-size:20px;">Упаковываем историю в досуг.</p>
+    <h3>Интерактивные пешие экскурсии по историческим местам Ярославля для семей, школ, детских садов и лагерей.</h3>
+</div>
+
+<hr />
+
+<div class="text-center">
+    <h2>Наш девиз</h2>
+    <p style="font-size:20px;">Интересно на маршрутах <br />
+    Папам, мамам, всем вокруг<br />
+    Ведь история про город<br />
+    Упакована в досуг!</p>
+</div>
+
+<hr />
+
+<div class="container-fluid text-center">
+    <h2>Особенности Экскурсий</h2>
+
+    <br />
+
+    <div class="row">
+        <div class="col-sm-6">
+            <i class="bi bi-gift-fill"></i>
+            <h2>Артефакты, карты, загадки, сувениры</h2>
+        </div>
+
+        <div class="col-sm-6">
+            <i class="bi bi-paperclip"></i>
+            <h2>Каждый блок информации закрепляется заданием</h2>
+            <p class="text" style="font-size:20px;">Даже если участник не знает ничего, его ждёт успех!</p>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row">
+        <div class="col-sm-4">
+            <i class="bi bi-controller"></i>
+            <h2>Подача информации в игровой форме</h2>
+        </div>
+
+        <div class="col-sm-4">
+            <i class="bi bi-image"></i>
+            <h2>Красочные картинки</h2>
+        </div>
+
+        <div class="col-sm-4">
+            <i class="bi bi-balloon-heart"></i>
+            <h2>Задача - заинтересовать детей;</h2>
+            <h2>показать, что история - это интересно</h2>
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<div class="text-center">
+    <h2>Наши Экскурсии</h2>
+</div>
+
+<div class="container">
+    <div class="row row-cols-md-3 row-cols-sm-1 g-4">
+        @foreach (var tour in Model)
+        {
+            <div class="col">
+                <div class="card mx-auto" style="width: 18rem;">
+                    <img src="@Url.Content($"~/images/{tour.Id}/")@tour.MainImage" class="card-img-top" alt="@tour.Name">
+                    <div class="card-body">
+                        <h5 class="card-title">@tour.Name</h5>
+                        <p class="card-text">Цена блиета: @tour.TicketPrice ₽</p>
+                        <a asp-action="Details" asp-controller="Tour" asp-route-id="@tour.Id" class="btn btn-primary">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

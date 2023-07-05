@@ -1,0 +1,41 @@
+﻿@model anothertour.Models.ScheduleItem
+
+@{
+    ViewData["Title"] = "Побробности";
+}
+
+<h1>Побробности события</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.GuideId)
+        </dt>
+        <dd class = "col-sm-10">
+            @ViewBag.GuideName
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SelectedTour)
+        </dt>
+        <dd class = "col-sm-10">
+            @ViewBag.TourName
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TouristsCount)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TouristsCount)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Date_Time)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Date_Time)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-secondary" asp-action="EventsList" asp-controller="Schedule">Назад к списку</a> | 
+    <a class="btn btn-secondary" asp-action="EditEvent" asp-route-id="@Model?.ScheduleItemId">Редактировать</a>
+</div>

@@ -1,0 +1,34 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@model anothertour.ViewModels.ChangeRoleViewModel
+
+@{
+    ViewData["Title"] = "Изменить роль";
+}
+
+<h2>Измнеить роль для пользователя @Model.UserEmail</h2>
+<hr />
+<form asp-action="ChangeUserRole" asp-controller="Admin" method="post">
+    <input type="hidden" name="id" value="@Model.UserId" />
+    <div class="form-group">
+        @foreach (var role in Model.AllRoles)
+        {
+            <ul>
+            @if (Model.UserRoles.Contains(role.Name))
+            {
+                <li><input type="checkbox" name="roles" value="@role.Name" checked /> @role.Name </li>
+            }
+            else
+            {
+                <li><input type="checkbox" name="roles" value="@role.Name" /> @role.Name </li>
+            }
+            </ul>
+        }
+    </div>
+    <br />
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary" value="Сохранить" />
+    </div>
+</form>
+<br />
+<a asp-action="Users" asp-controller="Admin" class="btn btn-secondary">Назад к списку пользователей</a>

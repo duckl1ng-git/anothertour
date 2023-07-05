@@ -1,0 +1,114 @@
+﻿@using anothertour.ViewModels
+
+@model ScheduleViewModel
+
+@{
+    ViewData["Title"] = "Расписание";
+}
+
+<h1 class="text-center">Ближайшие экскурсии</h1>
+
+
+<div class="calendar ftable">
+    <div class="header text-center">
+        <h2>@DateTime.Now.ToString("MMMM yyyy") - @DateTime.Now.AddMonths(1).ToString("MMMM yyyy")</h2>
+    </div>
+    <table class="table text-center table-sm">
+        <thead>
+            <tr>
+                <th>Пн</th>
+                <th>Вт</th>
+                <th>Ср</th>
+                <th>Чт</th>
+                <th>Пт</th>
+                <th>Сб</th>
+                <th>Вс</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < 6 * 7; i += 7)
+            {
+                <tr>
+                    @for (int j = 0; j < 7; j++)
+                    {
+                        DateTime date = Model.Days[i + j];
+                        <td>
+
+                            @if (Model.Items.Where(x => x.Date_Time.Date == Model.Days[i + j]).Count() != 0)
+                            {
+                                @if (date.Date == DateTime.Now.Date)
+                                {
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal-@i-@j">
+                                        <div class="date text-center">
+                                            <h3>@date.Day</h3>
+                                        </div>
+                                    </button>
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal-@i-@j">
+                                        <div class="date text-center">
+                                            <h3>@date.Day</h3>
+                                        </div>
+                                    </button>
+                                }
+                            }
+                            else
+                            {
+                                @if (date.Date == DateTime.Now.Date)
+                                {
+                                    <button type="button" class="btn btn-primary" disabled data-bs-toggle="modal" data-bs-target="#exampleModal-@i-@j">
+                                        <div class="date text-center">
+                                            <h3>@date.Day</h3>
+                                        </div>
+                                    </button>
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-light" disabled data-bs-toggle="modal" data-bs-target="#exampleModal-@i-@j">
+                                        <div class="date text-center">
+                                            <h3>@date.Day</h3>
+                                        </div>
+                                    </button>
+                                }
+                            }
+
+                            <div class="modal fade" id="exampleModal-@i-@j" tabindex="-1" aria-labelledby="exampleModalLabel-@i-@j" aria-hidden="true">
+                                <div class="modal-dialog modal-fullscreen-sm-down">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel-@i-@j"> @date.ToShortDateString() </h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="items">
+                                                <ul>
+                                                    @foreach (var item in Model.Items.Where(x => x.Date_Time.Date == Model.Days[i + j]))
+                                                    {
+                                                        <li>
+                                                            <h4>@item.SelectedTour.Name</h4>
+                                                            <p>@Html.DisplayNameFor(model => item.TouristsCount): @Html.DisplayFor(model => item.TouristsCount) </p>
+                                                            <p>@Html.DisplayNameFor(model => item.Date_Time): @Html.DisplayFor(model => item.Date_Time) </p>
+                                                        </li>
+                                                        <hr />
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <a asp-action="Index" asp-controller="Home" class="btn btn-secondary">На главную</a>
+</div>

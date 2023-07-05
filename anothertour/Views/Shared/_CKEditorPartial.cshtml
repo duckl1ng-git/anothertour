@@ -1,0 +1,23 @@
+﻿<style>
+    /* increase height of ckeditor*/
+    .ck-editor__editable_inline {
+        min-height: 200px;
+    }
+</style>
+
+@section Scripts{
+    <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
+    <script>
+        $(document).ready(function () {
+            // ckeditor 5 initialization
+            ClassicEditor
+                .create(document.getElementById('description'))
+                .then(editor => {
+                    console.log(editor);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        });
+    </script>
+}

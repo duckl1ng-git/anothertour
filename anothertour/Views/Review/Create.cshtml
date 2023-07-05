@@ -1,0 +1,40 @@
+﻿@model anothertour.Models.Review
+
+@{
+    ViewData["Title"] = "Отзыв";
+}
+
+<h1>Оставить отзыв</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="TourId" />
+            <div class="form-group">
+                <label class="control-label">Отзыв на экскурсию: @ViewBag.TourName</label>
+            </div>
+            <input type="hidden" asp-for="ClientId" />
+            <input type="hidden" asp-for="Date" />
+            <div class="form-group">
+                <label asp-for="Text" class="control-label"></label>
+                <input asp-for="Text" class="form-control" type="text"/>
+                <span asp-validation-for="Text" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Score" class="control-label"></label>
+                <input asp-for="Score" class="form-control" type="number" />
+                <span asp-validation-for="Score" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a class="btn btn-secondary" asp-action="Details" asp-controller="Tour" asp-route-id="@Model.TourId">Назад</a>
+</div>
+

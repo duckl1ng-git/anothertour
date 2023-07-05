@@ -1,0 +1,13 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IdentityUser
+@{
+    ViewData["Title"] = "Удаление пользователя";
+}
+
+<h2>Вы уверены, что хотите удалить пользователя @Model.Email?</h2>
+
+<form asp-action="DeleteUser" method="post" asp-route-id="@Model.Id">
+    <input type="submit" class="btn btn-danger" value="Удалить" />
+</form>
+<br />
+<a asp-action="Users" asp-controller="Admin" class="btn btn-secondary">Назад к списку пользователей</a>

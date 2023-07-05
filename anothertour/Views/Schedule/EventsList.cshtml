@@ -1,0 +1,76 @@
+﻿@model IEnumerable<anothertour.Models.ScheduleItem>
+
+@{
+    ViewData["Title"] = "Список событий";
+}
+
+<h1>Список событий</h1>
+<hr />
+
+<p>
+    <a class="btn btn-secondary" asp-action="CreateEvent">Создать</a>
+</p>
+<div class="ftable">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+
+                    @Html.DisplayNameFor(model => model.SelectedTour)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GuideId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TouristsCount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Date_Time)
+                </th>
+                <th>
+                    Изменить
+                </th>
+                <th>
+                    Подробнее
+                </th>
+                <th>
+                    Удалить
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SelectedTour.Name)
+                    </td>
+                    <td>
+                        @ViewData[item.GuideId]
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TouristsCount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date_Time)
+                    </td>
+                    <td>
+                        <a class="btn btn-secondary" asp-action="EditEvent" asp-route-id="@item.ScheduleItemId">
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.ScheduleItemId">
+                            <i class="bi bi-eye"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a class="btn btn-secondary" asp-action="DeleteEvent" asp-route-id="@item.ScheduleItemId">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

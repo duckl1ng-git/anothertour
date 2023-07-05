@@ -1,0 +1,112 @@
+﻿@model IEnumerable<anothertour.Models.Order>
+
+@{
+    ViewData["Title"] = "Список заявок";
+}
+
+<h1>Список заявок</h1>
+<hr />
+
+<p>
+    <a class="btn btn-secondary" asp-action="ManualCreate">Создать</a>
+</p>
+
+<div class="ftable">
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.TourId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TourDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TouristsCount)
+                </th>
+                @*<th>
+                    @Html.DisplayNameFor(model => model.LastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PhoneNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                @*<th>
+                    @Html.DisplayNameFor(model => model.TotalPrice)
+                </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.Date)
+                </th>
+                <th>
+                    Редактировать
+                </th>
+                <th>
+                    Подробности
+                </th>
+                <th>
+                    Удалить
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @ViewData[item.TourId.ToString()]
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TourDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TouristsCount)
+                    </td>
+                    @*<td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PhoneNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    @*<td>
+                        @Html.DisplayFor(modelItem => item.TotalPrice)
+                    </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@item.Id">
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.Id">
+                            <i class="bi bi-eye"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a class="btn btn-secondary" asp-action="Delete" asp-route-id="@item.Id">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

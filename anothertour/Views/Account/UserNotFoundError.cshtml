@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Ошибка";
+}
+
+<h1>Пользователь не найден!</h1>
+<h2>Проверьте адрес электронной почты и повторите попытку</h2>
+
+<br />
+<a asp-action="ForgorPassword" asp-controller="Account" class="btn btn-secondary">
+    Вернуться к восстановлению пароля
+</a>
+
+<br />
+<a asp-action="Index" asp-controller="Home" class="btn btn-secondary">
+    <i class="bi bi-arrow-return-left"></i>
+    На главную
+</a>
