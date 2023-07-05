@@ -65,8 +65,6 @@ app.UseHsts();
 //    await roleManager.CreateAsync(new IdentityRole("manager"));
 //    await roleManager.CreateAsync(new IdentityRole("guide"));
 
-//    await userManager.AddToRoleAsync(await userManager.FindByEmailAsync("ducklig@yandex.ru"), "admin");
-
 //}
 
 app.MapControllerRoute(
