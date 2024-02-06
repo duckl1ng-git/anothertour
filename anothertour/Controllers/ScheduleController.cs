@@ -57,7 +57,8 @@ namespace anothertour.Controllers
             var guides = await _userManager.GetUsersInRoleAsync("guide");
             foreach (var guide in guides)
             {
-                ViewData[guide.Id] = guide.UserName;
+                var client = db.Clients.Where(x => x.Id == guide.Id).FirstOrDefault();
+                ViewData[guide.Id] = client.FirstName + " " + client.LastName;
             }
             return View(events);
         }
@@ -67,7 +68,16 @@ namespace anothertour.Controllers
         {
             var slist = new SelectList(db.Tours.ToList(), "Id", "Name");
             ViewBag.Tours = slist;
-            slist = new SelectList(await _userManager.GetUsersInRoleAsync("guide"), "Id", "UserName");
+
+            var guides = await _userManager.GetUsersInRoleAsync("guide");
+            var guides_ids = new Dictionary<string, string>();
+            foreach (var guide in guides)
+            {
+                var client_guid = db.Clients.Where(x => x.Id == guide.Id).FirstOrDefault();
+                guides_ids.Add(client_guid.Id, client_guid.FirstName + " " + client_guid.LastName);
+            }
+            //slist = new SelectList(await _userManager.GetUsersInRoleAsync("guide"), "Id", "UserName");
+            slist = new SelectList(guides_ids, "Key", "Value");
             ViewBag.Guides = slist;
             var l = tourDate.Split('.', ' ', ':');
             var dt = new DateTime(int.Parse(l[2]), int.Parse(l[1]), int.Parse(l[0]), int.Parse(l[3]), int.Parse(l[4]), int.Parse(l[5]));
@@ -80,7 +90,16 @@ namespace anothertour.Controllers
         {
             var slist = new SelectList(db.Tours.ToList(), "Id", "Name");
             ViewBag.Tours = slist;
-            slist = new SelectList (await _userManager.GetUsersInRoleAsync("guide"), "Id", "UserName");
+
+            var guides = await _userManager.GetUsersInRoleAsync("guide");
+            var guides_ids = new Dictionary<string, string>();
+            foreach (var guide in guides)
+            {
+                var client_guid = db.Clients.Where(x => x.Id == guide.Id).FirstOrDefault();
+                guides_ids.Add(client_guid.Id, client_guid.FirstName + " " + client_guid.LastName);
+            }
+            //slist = new SelectList(await _userManager.GetUsersInRoleAsync("guide"), "Id", "UserName");
+            slist = new SelectList(guides_ids, "Key", "Value");
             ViewBag.Guides = slist;
             return View();
         }
@@ -109,7 +128,16 @@ namespace anothertour.Controllers
         {
             var slist = new SelectList(db.Tours.ToList(), "Id", "Name");
             ViewBag.Tours = slist;
-            slist = new SelectList(await _userManager.GetUsersInRoleAsync("guide"), "Id", "UserName");
+
+            var guides = await _userManager.GetUsersInRoleAsync("guide");
+            var guides_ids = new Dictionary<string, string>();
+            foreach (var guide in guides)
+            {
+                var client_guid = db.Clients.Where(x => x.Id == guide.Id).FirstOrDefault();
+                guides_ids.Add(client_guid.Id, client_guid.FirstName + " " + client_guid.LastName);
+            }
+            //slist = new SelectList(await _userManager.GetUsersInRoleAsync("guide"), "Id", "UserName");
+            slist = new SelectList(guides_ids, "Key", "Value");
             ViewBag.Guides = slist;
             var _event = db.ScheduleItems.Where(s => s.ScheduleItemId == id).FirstOrDefault();
             return View(_event);
@@ -158,7 +186,8 @@ namespace anothertour.Controllers
             var _event = db.ScheduleItems.Where(s => s.ScheduleItemId == id).FirstOrDefault();
             ViewBag.TourName = db.Tours.Where(t => t.Id == _event.TourId).FirstOrDefault().Name;
             var guide = await _userManager.FindByIdAsync(_event.GuideId);
-            ViewBag.GuideName = guide.UserName;
+            var client = db.Clients.Where(x => x.Id == guide.Id).FirstOrDefault();
+            ViewBag.GuideName = client.FirstName + " " + client.LastName;
             return View(_event);
         }
     }

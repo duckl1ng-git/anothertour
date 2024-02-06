@@ -83,7 +83,7 @@
                     <img src="@Url.Content($"~/images/{tour.Id}/")@tour.MainImage" class="card-img-top" alt="@tour.Name">
                     <div class="card-body">
                         <h5 class="card-title">@tour.Name</h5>
-                        <p class="card-text">Цена блиета: @tour.TicketPrice ₽</p>
+                        <p class="card-text">Цена билета: @tour.TicketPrice ₽</p>
                         <a asp-action="Details" asp-controller="Tour" asp-route-id="@tour.Id" class="btn btn-primary">Подробнее</a>
                     </div>
                 </div>

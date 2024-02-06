@@ -36,7 +36,12 @@
 
                             @if (Model.Items.Where(x => x.Date_Time.Date == Model.Days[i + j]).Count() != 0)
                             {
-                                @if (date.Date == DateTime.Now.Date)
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal-@i-@j">
+                                    <div class="date text-center">
+                                        <h3>@date.Day</h3>
+                                    </div>
+                                </button>
+                                @* @if (date.Date == DateTime.Now.Date)
                                 {
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal-@i-@j">
                                         <div class="date text-center">
@@ -51,11 +56,16 @@
                                             <h3>@date.Day</h3>
                                         </div>
                                     </button>
-                                }
+                                } *@
                             }
                             else
                             {
-                                @if (date.Date == DateTime.Now.Date)
+                                <button type="button" class="btn btn-light" disabled data-bs-toggle="modal" data-bs-target="#exampleModal-@i-@j">
+                                    <div class="date text-center">
+                                        <h3>@date.Day</h3>
+                                    </div>
+                                </button>
+                                @* @if (date.Date == DateTime.Now.Date)
                                 {
                                     <button type="button" class="btn btn-primary" disabled data-bs-toggle="modal" data-bs-target="#exampleModal-@i-@j">
                                         <div class="date text-center">
@@ -70,7 +80,7 @@
                                             <h3>@date.Day</h3>
                                         </div>
                                     </button>
-                                }
+                                } *@
                             }
 
                             <div class="modal fade" id="exampleModal-@i-@j" tabindex="-1" aria-labelledby="exampleModalLabel-@i-@j" aria-hidden="true">
@@ -82,15 +92,19 @@
                                         </div>
                                         <div class="modal-body">
                                             <div class="items">
-                                                <ul>
+                                                <ul class="list-group">
                                                     @foreach (var item in Model.Items.Where(x => x.Date_Time.Date == Model.Days[i + j]))
                                                     {
-                                                        <li>
+                                                        <li class="list-group-item">
                                                             <h4>@item.SelectedTour.Name</h4>
                                                             <p>@Html.DisplayNameFor(model => item.TouristsCount): @Html.DisplayFor(model => item.TouristsCount) </p>
                                                             <p>@Html.DisplayNameFor(model => item.Date_Time): @Html.DisplayFor(model => item.Date_Time) </p>
+                                                            <div>
+                                                                <a asp-action="CreateFromEvent" asp-controller="Order" asp-route-tourId="@item.TourId" asp-route-scheduleItemId="@item.ScheduleItemId" class="btn btn-primary">
+                                                                    Записаться
+                                                                </a>
+                                                            </div>
                                                         </li>
-                                                        <hr />
                                                     }
                                                 </ul>
                                             </div>

@@ -4,27 +4,32 @@
     ViewData["Title"] = "Вход";
 }
 
-<form method="post" asp-controller="Account" asp-action="Login">
-    <div asp-validation-summary="ModelOnly"></div>
-    @*<input type="hidden" asp-for="RememberMe" />*@
-    <input type="hidden" asp-for="ReturnUrl" />
-    <div>
-        <label asp-for="Email"></label><br />
-        <input asp-for="Email" type="email" />
-        <span asp-validation-for="Email"></span>
-    </div>
+<h2 class="text-center">Вход</h2>
+<hr />
 
-    <div>
-        <label asp-for="Password"></label><br />
-        <input asp-for="Password" />
-        <span asp-validation-for="Password"></span>
-    </div>
-    <br />
-    <div>
-        <a asp-action="ForgotPassword" asp-controller="Account" class="btn btn-outline-secondary">Забыли пароль?</a>
-    </div>
-    <br />
-    <div>
-        <button type="submit" class="btn btn-primary">Войти</button>
-    </div>
-</form>
+<div class="d-flex justify-content-center align-items-center">
+    <form method="post" asp-controller="Account" asp-action="Login">
+        <div asp-validation-summary="ModelOnly"></div>
+        @*<input type="hidden" asp-for="RememberMe" />*@
+        <input type="hidden" asp-for="ReturnUrl" />
+        <div class="mb-3">
+            <label asp-for="Email"></label><br />
+            <input asp-for="Email" type="email" class="form-control form-control-lg" placeholder="name@example.com" />
+            <span asp-validation-for="Email"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Password"></label><br />
+            <input asp-for="Password" class="form-control form-control-lg" />
+            <span asp-validation-for="Password"></span>
+        </div>
+
+        <div class="mb-3">
+            <a asp-action="ForgotPassword" asp-controller="Account" class="btn btn-outline-secondary">Забыли пароль?</a>
+        </div>
+
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">Войти</button>
+        </div>
+    </form>
+</div>
