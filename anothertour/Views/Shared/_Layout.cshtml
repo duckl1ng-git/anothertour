@@ -9,24 +9,7 @@
     <link rel="stylesheet" href="~/anothertour.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <link rel="shortcut icon" href="~/images/favicon.ico" type="image/x-icon">
-    <!-- Yandex.Metrika counter -->
-    <script type="text/javascript">
-        (function (m, e, t, r, i, k, a) {
-            m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
-            m[i].l = 1 * new Date();
-            for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
-            k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
-        })
-            (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-
-        ym(64891231, "init", {
-            clickmap: true,
-            trackLinks: true,
-            accurateTrackBounce: true
-        });
-    </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/64891231" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-    <!-- /Yandex.Metrika counter -->
+    <partial name="YandexMetrikaCounter" />
 </head>
 <body class="bgimg">
     <header>
@@ -54,6 +37,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contacts">Контакты</a>
                         </li>
+                        <li class="nav-item">
+                            
+                        </li>
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
@@ -62,14 +48,15 @@
     </header>
 
     <div class="container">
-        <main role="main" @* class="pb-3" *@>
+        <main role="main">
             @RenderBody()
         </main>
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container text-center">
-            &copy; 2023 - @DateTime.Now.Year Другая Экскурсия @*- <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>*@
+        <div class="d-flex justify-content-sm-evenly">
+            &copy; 2023 - @DateTime.Now.Year Другая Экскурсия @*- <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>*@    
+            <partial name="YandexOrganizationBadge" />
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

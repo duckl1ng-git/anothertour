@@ -32,5 +32,9 @@ namespace anothertour.Models
         [Display(Name = "Дата и время")]
         [Required]
         public DateTime Date_Time { get; set; }
+
+        [Display(Name = "Запись отключена (Да/Нет)")]
+        [Required]
+        public bool OrderingDisabled { get; set; }
     }
 }

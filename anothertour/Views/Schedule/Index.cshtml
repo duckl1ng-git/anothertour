@@ -100,9 +100,16 @@
                                                             <p>@Html.DisplayNameFor(model => item.TouristsCount): @Html.DisplayFor(model => item.TouristsCount) </p>
                                                             <p>@Html.DisplayNameFor(model => item.Date_Time): @Html.DisplayFor(model => item.Date_Time) </p>
                                                             <div>
+                                                                @if (item.OrderingDisabled || (item.Date_Time - DateTime.Now).TotalHours <= 2)
+                                                                {
+                                                                    <p>Запись на эту экскурсию окончена.</p>
+                                                                }
+                                                                else
+                                                                {
                                                                 <a asp-action="CreateFromEvent" asp-controller="Order" asp-route-tourId="@item.TourId" asp-route-scheduleItemId="@item.ScheduleItemId" class="btn btn-primary">
                                                                     Записаться
                                                                 </a>
+                                                                }
                                                             </div>
                                                         </li>
                                                     }

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using System.Globalization;
 
 namespace anothertour.Controllers
@@ -101,6 +102,11 @@ namespace anothertour.Controllers
             //slist = new SelectList(await _userManager.GetUsersInRoleAsync("guide"), "Id", "UserName");
             slist = new SelectList(guides_ids, "Key", "Value");
             ViewBag.Guides = slist;
+            var choices = new Dictionary<bool, string>();
+            choices.Add(true, "Да");
+            choices.Add(false, "Нет");
+            slist = new SelectList(choices, "Key", "Value");
+            ViewBag.Ordering = slist;
             return View();
         }
 
@@ -140,6 +146,11 @@ namespace anothertour.Controllers
             slist = new SelectList(guides_ids, "Key", "Value");
             ViewBag.Guides = slist;
             var _event = db.ScheduleItems.Where(s => s.ScheduleItemId == id).FirstOrDefault();
+            var choices = new Dictionary<bool, string>();
+            choices.Add(true, "Да");
+            choices.Add(false, "Нет");
+            slist = new SelectList(choices, "Key", "Value");
+            ViewBag.Ordering = slist;
             return View(_event);
         }
 

@@ -19,7 +19,7 @@ namespace anothertour.Models
         public int TourId { get; set; }
 
         [Required]
-        [Display(Name = "Желаемые дата и время начала экскурсии")]
+        [Display(Name = "Дата и время начала экскурсии")]
         public DateTime TourDate { get; set; }
 
         [Display(Name = "Количество участников")]
