@@ -361,3 +361,9 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/anothertour/wwwroot/video
+/anothertour/appsettings.json
+/anothertour/EmailService.cs
+/anothertour/wwwroot/images
+/anothertour/Views/Shared/YandexMetrikaCounter.cshtml
+/anothertour/Views/Shared/YandexOrganizationBadge.cshtml
