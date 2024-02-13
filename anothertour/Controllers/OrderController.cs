@@ -19,7 +19,7 @@ namespace anothertour.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
+        //[AllowAnonymous]
         public async Task<IActionResult> Create(int tourId)
         {
             var order = new Order { TourId = tourId, Status = "Новый", Date = DateTime.Now, TotalPrice = 1, TourDate = DateTime.Now.Date };
@@ -38,7 +38,7 @@ namespace anothertour.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
+        //[AllowAnonymous]
         public async Task<IActionResult> Create (Order model)
         {
             if (ModelState.IsValid)
