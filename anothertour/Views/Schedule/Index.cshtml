@@ -13,7 +13,7 @@
     <div class="header text-center">
         <h2>@DateTime.Now.ToString("MMMM yyyy") - @DateTime.Now.AddMonths(1).ToString("MMMM yyyy")</h2>
     </div>
-    <table class="table text-center table-sm">
+    <table class="table text-center table-sm table-bordered">
         <thead>
             <tr>
                 <th>Пн</th>
@@ -97,8 +97,10 @@
                                                     {
                                                         <li class="list-group-item">
                                                             <h4>@item.SelectedTour.Name</h4>
+                                                            <img src="@Url.Content($"~/images/{item.SelectedTour.Id}/")@item.SelectedTour.MainImage" alt="@item.SelectedTour.Name" class="img-fluid" width="100" height="100">
                                                             <p>@Html.DisplayNameFor(model => item.TouristsCount): @Html.DisplayFor(model => item.TouristsCount) </p>
                                                             <p>@Html.DisplayNameFor(model => item.Date_Time): @Html.DisplayFor(model => item.Date_Time) </p>
+                                                            <p>@Html.DisplayNameFor(model => item.GuideId): @ViewBag.Guides[item.GuideId]</p>
                                                             <div>
                                                                 @if (item.OrderingDisabled || (item.Date_Time - DateTime.Now).TotalHours <= 2)
                                                                 {

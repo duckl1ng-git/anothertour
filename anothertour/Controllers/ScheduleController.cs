@@ -24,10 +24,11 @@ namespace anothertour.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var items = db.ScheduleItems.Include(i => i.SelectedTour).ToList();
             var model = new ScheduleViewModel { Items = items, Days = GetDays() };
+            ViewBag.Guides = await GetGuidesDictionaryAsync();
             return View(model);
         }
 
@@ -70,16 +71,8 @@ namespace anothertour.Controllers
             var slist = new SelectList(db.Tours.ToList(), "Id", "Name");
             ViewBag.Tours = slist;
 
-            var guides = await _userManager.GetUsersInRoleAsync("guide");
-            var guides_ids = new Dictionary<string, string>();
-            foreach (var guide in guides)
-            {
-                var client_guid = db.Clients.Where(x => x.Id == guide.Id).FirstOrDefault();
-                guides_ids.Add(client_guid.Id, client_guid.FirstName + " " + client_guid.LastName);
-            }
-            //slist = new SelectList(await _userManager.GetUsersInRoleAsync("guide"), "Id", "UserName");
-            slist = new SelectList(guides_ids, "Key", "Value");
-            ViewBag.Guides = slist;
+            
+            ViewBag.Guides = new SelectList(await GetGuidesDictionaryAsync(), "Key", "Value");
             var l = tourDate.Split('.', ' ', ':');
             var dt = new DateTime(int.Parse(l[2]), int.Parse(l[1]), int.Parse(l[0]), int.Parse(l[3]), int.Parse(l[4]), int.Parse(l[5]));
             var _event = new ScheduleItem { Date_Time = dt, TourId = tourId, TouristsCount = touristsCount };
@@ -92,16 +85,7 @@ namespace anothertour.Controllers
             var slist = new SelectList(db.Tours.ToList(), "Id", "Name");
             ViewBag.Tours = slist;
 
-            var guides = await _userManager.GetUsersInRoleAsync("guide");
-            var guides_ids = new Dictionary<string, string>();
-            foreach (var guide in guides)
-            {
-                var client_guid = db.Clients.Where(x => x.Id == guide.Id).FirstOrDefault();
-                guides_ids.Add(client_guid.Id, client_guid.FirstName + " " + client_guid.LastName);
-            }
-            //slist = new SelectList(await _userManager.GetUsersInRoleAsync("guide"), "Id", "UserName");
-            slist = new SelectList(guides_ids, "Key", "Value");
-            ViewBag.Guides = slist;
+            ViewBag.Guides = new SelectList(await GetGuidesDictionaryAsync(), "Key", "Value");
             var choices = new Dictionary<bool, string>();
             choices.Add(true, "Да");
             choices.Add(false, "Нет");
@@ -135,16 +119,7 @@ namespace anothertour.Controllers
             var slist = new SelectList(db.Tours.ToList(), "Id", "Name");
             ViewBag.Tours = slist;
 
-            var guides = await _userManager.GetUsersInRoleAsync("guide");
-            var guides_ids = new Dictionary<string, string>();
-            foreach (var guide in guides)
-            {
-                var client_guid = db.Clients.Where(x => x.Id == guide.Id).FirstOrDefault();
-                guides_ids.Add(client_guid.Id, client_guid.FirstName + " " + client_guid.LastName);
-            }
-            //slist = new SelectList(await _userManager.GetUsersInRoleAsync("guide"), "Id", "UserName");
-            slist = new SelectList(guides_ids, "Key", "Value");
-            ViewBag.Guides = slist;
+            ViewBag.Guides = new SelectList(await GetGuidesDictionaryAsync(), "Key", "Value");
             var _event = db.ScheduleItems.Where(s => s.ScheduleItemId == id).FirstOrDefault();
             var choices = new Dictionary<bool, string>();
             choices.Add(true, "Да");
@@ -200,6 +175,19 @@ namespace anothertour.Controllers
             var client = db.Clients.Where(x => x.Id == guide.Id).FirstOrDefault();
             ViewBag.GuideName = client.FirstName + " " + client.LastName;
             return View(_event);
+        }
+
+        private async Task<Dictionary<string,string>> GetGuidesDictionaryAsync()
+        {
+            var guides = await _userManager.GetUsersInRoleAsync("guide");
+            var guides_ids = new Dictionary<string, string>();
+            foreach (var guide in guides)
+            {
+                var client_guid = db.Clients.Where(x => x.Id == guide.Id).FirstOrDefault();
+                guides_ids.Add(client_guid.Id, client_guid.FirstName + " " + client_guid.LastName);
+            }
+            // var slist = new SelectList(guides_ids, "Key", "Value");
+            return guides_ids;
         }
     }
 }
